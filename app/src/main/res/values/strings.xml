@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Url Shortener</string>
+    <string name="url_to_shorten">URL to shorten</string>
+</resources>
