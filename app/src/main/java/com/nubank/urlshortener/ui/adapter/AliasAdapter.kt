@@ -9,7 +9,7 @@ import com.nubank.urlshortener.data.model.Alias
 import com.nubank.urlshortener.databinding.ItemAliasBinding
 
 
-class AliasAdapter(private val aliases: List<Alias>) :
+class AliasAdapter() :
     ListAdapter<Alias, AliasAdapter.AliasViewHolder>(AliasDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AliasViewHolder {
@@ -27,12 +27,13 @@ class AliasAdapter(private val aliases: List<Alias>) :
 
         fun bind(alias: Alias) {
             binding.apply {
-                tvAlias.text = alias.alias
-                tvOriginalUrl.text = alias.links.self
+                tvAlias.text = alias.alias ?: "Error retrieving data from model"
+                tvOriginalUrl.text = alias.links?.self ?: "Error retrieving data from model"
             }
         }
     }
 
+    // This is a workaround to avoid a bug in the ListAdapter
     override fun submitList(list: List<Alias>?) {
         super.submitList(list?.toList())
     }

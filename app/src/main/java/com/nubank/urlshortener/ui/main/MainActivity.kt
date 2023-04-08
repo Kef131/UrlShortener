@@ -1,35 +1,21 @@
 package com.nubank.urlshortener.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.nubank.urlshortener.data.remote.UrlShortenerApi
+import com.nubank.urlshortener.data.repository.UrlShortenerRepository
 import com.nubank.urlshortener.databinding.ActivityMainBinding
 import com.nubank.urlshortener.ui.adapter.AliasAdapter
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import retrofit2.Retrofit
-import com.nubank.urlshortener.data.model.Alias
-import com.nubank.urlshortener.data.repository.UrlShortenerRepository
 import com.nubank.urlshortener.ui.viewmodel.MainViewModel
 import com.nubank.urlshortener.ui.viewmodel.MainViewModelFactory
-import org.chromium.net.UrlRequest
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var aliasAdapter: AliasAdapter
-    var aliases = mutableListOf<Alias>()
 
     lateinit var mainViewModel: MainViewModel
 
@@ -40,27 +26,47 @@ class MainActivity : AppCompatActivity() {
         mainViewModel = ViewModelProvider(this, MainViewModelFactory(UrlShortenerRepository())).get(MainViewModel::class.java)
 
         initRecyclerView()
+        setupClickListeners()
+        observeViewModel()
+    }
 
-
+    private fun observeViewModel() {
         mainViewModel.aliases.observe(this) { aliases ->
             aliasAdapter.submitList(aliases)
         }
 
+        mainViewModel.isLoading.observe(this) {
+            binding.pbLoading.isVisible = it
+        }
+
+        mainViewModel.errorMessage.observe(this) {
+            showToast(it)
+        }
+    }
+
+    private fun setupClickListeners() {
         binding.btnSendUrl.setOnClickListener {
             val url = binding.etInputUrl.text.toString().trim()
             if (url.isNotEmpty()) {
                 mainViewModel.createAlias(url)
                 binding.etInputUrl.text.clear()
+                showToast("Alias created successfully")
+            } else {
+                showToast("Please enter a valid URL")
+                binding.etInputUrl.setText("")
             }
         }
-
     }
+
     private fun initRecyclerView() {
-        aliasAdapter = AliasAdapter(aliases)
+        aliasAdapter = AliasAdapter()
         binding.rvListAliases.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = aliasAdapter
         }
+    }
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
 }

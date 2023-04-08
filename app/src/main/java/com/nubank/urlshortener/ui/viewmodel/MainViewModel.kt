@@ -8,9 +8,10 @@ import kotlinx.coroutines.launch
 
 class MainViewModel constructor(private val repository: UrlShortenerRepository): ViewModel() {
 
-    // LiveData properties to expose the data to the UI layer
     private val _aliases = MutableLiveData<List<Alias>>()
     val aliases: LiveData<List<Alias>> get() = _aliases
+
+    val isLoading = MutableLiveData<Boolean>()
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
@@ -20,11 +21,13 @@ class MainViewModel constructor(private val repository: UrlShortenerRepository):
     }
     fun createAlias(url: String) {
         viewModelScope.launch {
+            isLoading.postValue(true)
             try {
                 val alias = repository.createAlias(url)
                 val updatedAliases = mutableListOf<Alias>().apply {
                     addAll(aliases.value ?: emptyList())
                     add(alias)
+                    isLoading.postValue(false)
                 }
                 _aliases.value = updatedAliases
             } catch (e: Exception) {

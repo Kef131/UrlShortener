@@ -14,7 +14,6 @@ interface UrlShortenerApi {
 
     companion object {
         private const val BASE_URL = "https://url-shortener-server.onrender.com/"
-
         fun instance(): UrlShortenerApi {
             val retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
