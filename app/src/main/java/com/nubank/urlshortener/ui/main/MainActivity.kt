@@ -2,28 +2,39 @@ package com.nubank.urlshortener.ui.main
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.nubank.urlshortener.UrlShortenerApplication
+import com.nubank.urlshortener.data.remote.UrlShortenerApi
 import com.nubank.urlshortener.data.repository.UrlShortenerRepository
 import com.nubank.urlshortener.databinding.ActivityMainBinding
 import com.nubank.urlshortener.ui.adapter.AliasAdapter
 import com.nubank.urlshortener.ui.viewmodel.MainViewModel
 import com.nubank.urlshortener.ui.viewmodel.MainViewModelFactory
+import javax.inject.Inject
+
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var aliasAdapter: AliasAdapter
 
-    lateinit var mainViewModel: MainViewModel
+    private lateinit var mainViewModel: MainViewModel
+
+    @Inject
+    lateinit var viewModelFactory: MainViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        mainViewModel = ViewModelProvider(this, MainViewModelFactory(UrlShortenerRepository())).get(MainViewModel::class.java)
+        (application as UrlShortenerApplication).applicationComponent.inject(this)
+
+//        mainViewModel = ViewModelProvider(this, MainViewModelFactory)[MainViewModel::class.java]
+        mainViewModel = ViewModelProvider(this, MainViewModelFactory)[MainViewModel::class.java]
 
         initRecyclerView()
         setupClickListeners()

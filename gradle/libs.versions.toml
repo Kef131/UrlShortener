@@ -3,6 +3,7 @@
 # Plugin versions
 androidPlugin = "7.4.2"
 kotlinAndroid = "1.8.20"
+daggerPlugin = "2.44"
 
 [libraries]
 androidx-core-ktx ="androidx.core:core-ktx:1.9.0"
@@ -23,6 +24,10 @@ kotlinx-coroutines-android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1
 androidx-lifecycle = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
 androidx-databinding = "androidx.databinding:databinding-runtime:7.4.2"
 androidx-activity = "androidx.activity:activity-ktx:1.7.0"
+
+dagger-hilt = "com.google.dagger:hilt-android:2.44"
+dagger-compiler = "com.google.dagger:hilt-android-compiler:2.44"
+
 [bundles]
 androidx-tests = ["androidx-test-junit", "androidx-test-espresso"]
 
@@ -31,3 +36,4 @@ androidx-tests = ["androidx-test-junit", "androidx-test-espresso"]
 android-application = { id = "com.android.application", version.ref = "androidPlugin" }
 android-library = { id = "com.android.library", version.ref = "androidPlugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android" , version.ref = "kotlinAndroid" }
+dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "daggerPlugin" }
