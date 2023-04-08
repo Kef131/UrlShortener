@@ -28,7 +28,7 @@ class AliasAdapter(private val aliases: List<Alias>) :
         fun bind(alias: Alias) {
             binding.apply {
                 tvAlias.text = alias.alias
-                tvOriginalUrl.text = alias._links.self
+                tvOriginalUrl.text = alias.links.self
             }
         }
     }

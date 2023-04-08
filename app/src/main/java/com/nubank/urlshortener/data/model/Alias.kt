@@ -1,5 +1,7 @@
 package com.nubank.urlshortener.data.model
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * Data class for Alias object
  *
@@ -13,9 +15,11 @@ package com.nubank.urlshortener.data.model
  * }
  */
 
-data class Alias(val alias: String, val _links: Links) {
+data class Alias(
+    @SerializedName("alias") val alias: String,
+    @SerializedName("_links") val links: Links) {
     data class Links(
-        val self: String,
-        val short: String
+        @SerializedName("self") val self: String,
+        @SerializedName("short") val short: String
     )
 }

@@ -1,14 +1,23 @@
 package com.nubank.urlshortener.data.repository
 
 import com.nubank.urlshortener.data.model.Alias
-import kotlinx.coroutines.flow.Flow
+import com.nubank.urlshortener.data.remote.UrlShortenerApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 
-interface UrlShortenerRepository {
+class UrlShortenerRepository {
 
-    fun createAlias(url: String): Flow<Result<Alias>>
+    private val retrofit = UrlShortenerApi.instance()
 
-    fun getOriginalUrl(alias: String): Flow<Result<String>>
+    suspend fun createAlias(url: String): Alias {
+        val urlData = mapOf("url" to url)
+        val response = retrofit.createAlias(urlData)
+        if (response.isSuccessful) {
+            return response.body() ?: throw Exception("Unable to shorten URL")
+        } else {
+            throw Exception("Error: ${response.code()}")
+        }
+    }
 
-    fun getRecentAliases(): Flow<List<Alias>>
 }
