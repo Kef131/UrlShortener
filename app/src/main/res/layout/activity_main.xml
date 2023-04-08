@@ -27,7 +27,9 @@
         android:hint="@string/url_to_shorten"
         app:layout_constraintEnd_toStartOf="@+id/btn_sendUrl"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_titleApp" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_titleApp"
+        android:autofillHints=""
+        android:inputType="textUri" />
 
     <ImageButton
         android:id="@+id/btn_sendUrl"
@@ -35,12 +37,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:contentDescription="Sent Button"
-
         android:minHeight="48dp"
         android:src="@drawable/send"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_titleApp" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_titleApp"
+        android:contentDescription="@string/send_button" />
 
     <View
         android:id="@+id/divider"
@@ -60,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="Recently Shortened Url's"
+        android:text="@string/recently_shortened_url_s"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />

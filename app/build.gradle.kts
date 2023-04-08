@@ -1,8 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    kotlin("kapt")
-    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -39,15 +37,8 @@ android {
     }
 
 }
-kapt {
-    correctErrorTypes = true
-}
 
 dependencies {
-
-    implementation("com.google.dagger:hilt-android:2.44")
-    implementation("org.chromium.net:cronet-api:98.4758.101")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
 
     implementation(libs.androidx.databinding)
     implementation(libs.squareup.retrofit)
