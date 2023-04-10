@@ -9,7 +9,7 @@ import com.nubank.urlshortener.data.model.Alias
 import com.nubank.urlshortener.databinding.ItemAliasBinding
 
 
-class AliasAdapter() :
+class AliasAdapter :
     ListAdapter<Alias, AliasAdapter.AliasViewHolder>(AliasDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AliasViewHolder {

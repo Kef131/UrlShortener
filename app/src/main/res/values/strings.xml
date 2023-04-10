@@ -3,6 +3,6 @@
     <string name="url_to_shorten">URL to shorten</string>
     <string name="recently_shortened_url_s">Recent Alias</string>
     <string name="send_button">sentButton</string>
-    <string name="alias">"Alias: "</string>
-    <string name="url">URL:</string>
+    <string name="alias">Alias: </string>
+    <string name="url">URL: </string>
 </resources>

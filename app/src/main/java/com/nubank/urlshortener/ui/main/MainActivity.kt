@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.nubank.urlshortener.data.repository.UrlShortenerRepository
+import com.nubank.urlshortener.data.repository.UrlShortenerRepositoryImpl
 import com.nubank.urlshortener.databinding.ActivityMainBinding
 import com.nubank.urlshortener.ui.adapter.AliasAdapter
 import com.nubank.urlshortener.ui.viewmodel.MainViewModel
@@ -16,14 +16,13 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var aliasAdapter: AliasAdapter
-
-    lateinit var mainViewModel: MainViewModel
+    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        mainViewModel = ViewModelProvider(this, MainViewModelFactory(UrlShortenerRepository())).get(MainViewModel::class.java)
+        mainViewModel = ViewModelProvider(this, MainViewModelFactory(UrlShortenerRepositoryImpl()))[MainViewModel::class.java]
 
         initRecyclerView()
         setupClickListeners()
@@ -47,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupClickListeners() {
         binding.btnSendUrl.setOnClickListener {
             val url = binding.etInputUrl.text.toString().trim()
-            if (url.isNotEmpty()) {
+            if (url.isNotEmpty() && isValidUrl(url)) {
                 mainViewModel.createAlias(url)
                 binding.etInputUrl.text.clear()
                 showToast("Alias created successfully")
@@ -67,6 +66,11 @@ class MainActivity : AppCompatActivity() {
     }
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
+
+    private fun isValidUrl(url: String): Boolean {
+        val urlRegex = "^(https?://)?([\\w-]+\\.)+[\\w-]+(/[\\w-./?%&=]*)?$".toRegex()
+        return urlRegex.matches(url)
     }
 
 }

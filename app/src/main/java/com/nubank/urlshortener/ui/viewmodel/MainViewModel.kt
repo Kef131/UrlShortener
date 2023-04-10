@@ -2,11 +2,11 @@ package com.nubank.urlshortener.ui.viewmodel
 
 import androidx.lifecycle.*
 import com.nubank.urlshortener.data.model.Alias
-import com.nubank.urlshortener.data.repository.UrlShortenerRepository
+import com.nubank.urlshortener.data.repository.UrlShortenerRepositoryImpl
 import kotlinx.coroutines.launch
 
 
-class MainViewModel constructor(private val repository: UrlShortenerRepository): ViewModel() {
+class MainViewModel constructor(private val repository: UrlShortenerRepositoryImpl): ViewModel() {
 
     private val _aliases = MutableLiveData<List<Alias>>()
     val aliases: LiveData<List<Alias>> get() = _aliases
@@ -37,7 +37,7 @@ class MainViewModel constructor(private val repository: UrlShortenerRepository):
     }
 }
 
-class MainViewModelFactory constructor(private val repository: UrlShortenerRepository): ViewModelProvider.Factory {
+class MainViewModelFactory constructor(private val repository: UrlShortenerRepositoryImpl): ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")

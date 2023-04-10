@@ -7,8 +7,19 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.POST
 
+/**
+ * Retrofit interface for the Url Shortener API
+ */
 interface UrlShortenerApi {
 
+    /**
+     * Creates a new alias for a given url
+     *
+     * @param urlData Map with the url to be shortened
+     * @return Response with the alias object
+     *
+     * Note: This is the only call necessary to fulfil the requirement
+     */
     @POST("api/alias")
     suspend fun createAlias(@Body urlData: Map<String, String>): Response<Alias>
 

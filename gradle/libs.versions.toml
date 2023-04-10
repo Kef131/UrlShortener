@@ -23,9 +23,17 @@ kotlinx-coroutines-android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1
 androidx-lifecycle = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
 androidx-databinding = "androidx.databinding:databinding-runtime:7.4.2"
 androidx-activity = "androidx.activity:activity-ktx:1.7.0"
+
+mockk-android = "io.mockk:mockk-android:1.13.4"
+mockk = "io.mockk:mockk:1.13.4"
+kotlinx-coroutines-test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1"
+androidx-arch-core = "androidx.arch.core:core-testing:2.2.0"
+
+androidx-test-espresso-contrib = "androidx.test.espresso:espresso-contrib:3.5.1"
+
+
 [bundles]
 androidx-tests = ["androidx-test-junit", "androidx-test-espresso"]
-
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidPlugin" }

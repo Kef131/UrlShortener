@@ -35,6 +35,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    packagingOptions {
+        exclude("META-INF/LICENSE.md")
+        exclude("META-INF/LICENSE-notice.md")
+
+    }
 
 }
 
@@ -54,6 +59,13 @@ dependencies {
     implementation(libs.android.material)
     implementation(libs.androidx.constraint)
     implementation(libs.androidx.activity)
+    implementation(libs.androidx.test.espresso.contrib)
+
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.androidx.arch.core)
+
+    androidTestImplementation(libs.mockk.android)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.bundles.androidx.tests)

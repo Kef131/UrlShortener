@@ -16,9 +16,8 @@
         <TextView
             android:id="@+id/tv_titleUrl"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.1"
-            android:text="@string/alias"  />
+            android:layout_height="wrap_content"
+            android:text="@string/alias" />
 
         <TextView
             android:id="@+id/tv_alias"
@@ -39,7 +38,6 @@
             android:id="@+id/tv_titleAlias"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.1"
             android:text="@string/url" />
 
         <TextView
