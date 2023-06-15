@@ -1,7 +1,7 @@
 [versions]
 
 # Plugin versions
-androidPlugin = "7.4.2"
+androidPlugin = "8.0.0"
 kotlinAndroid = "1.8.20"
 
 [libraries]
